@@ -1,0 +1,28 @@
+generar (x,y,z) w h l = do
+    --cara A (frontal)
+    materialDiffuse Front$= Color4 0 0 1 1
+    superficie [((x-(w/2)),(y-(h/2)),(z-(l/2))),        ((x-(w/2)),(y+(h/2)),(z-(l/2))),         ((x+(w/2)),(y+(h/2)),(z-(l/2))),         ((x+(w/2)),(y-(h/2)),(z-(l/2)))] (0, 0, -1)
+    --Cara B (lateral der)
+    materialDiffuse Front$= Color4 0 0 0 1
+    superficie [((x-(w/2)),(y-(h/2)),(z-(l/2))),        ((x-(w/2)),(y+(h/2)),(z-(l/2))),         ((x-(w/2)),(y-(h/2)),(z+(l/2))),         ((x-(w/2)),(y+(h/2)),(z+(l/2)))] (-1,0, 0)
+    --Cara C (trasera)
+    materialDiffuse Front$= Color4 0 1 1 1
+    superficie [((x-(w/2)),(y-(h/2)),(z+(l/2))),         ((x-(w/2)),(y+(h/2)),(z+(l/2))),         ((x+(w/2)),(y+(h/2)),(z+(l/2))),         ((x+(w/2)),(y-(h/2)),(z+(l/2)))] (0, 0, 1)
+    --Cara D (lateral izq)
+    materialDiffuse Front$= Color4 0.1 0.1 0.1 1
+    superficie [((x+(w/2)),(y-(h/2)),(z-(l/2))),         ((x+(w/2)),(y+(h/2)),(z-(l/2))),         ((x+(w/2)),(y+(h/2)),(z+(l/2))),         ((x+(w/2)),(y-(h/2)),(z+(l/2)))] (1,0, 0)
+    --Cara E (Arriba)
+    materialDiffuse Front$= Color4 0 0 1 1
+    superficie [((x-(w/2)),(y+(h/2)),(z-(l/2))),         ((x-(w/2)),(y+(h/2)),(z+(l/2))),         ((x+(w/2)),(y+(h/2)),(z+(l/2))),         ((x+(w/2)),(y+(h/2)),(z-(l/2)))] (0,1,0)
+    --Cara F (Abajo)
+    materialDiffuse Front$= Color4 0.5 1 0.5 1
+    superficie [((x-(w/2)),(y-(h/2)),(z-(l/2))),          ((x-(w/2)),(y-(h/2)),(z+(l/2))),        ((x+(w/2)),(y-(h/2)),(z+(l/2))),          ((x+(w/2)),(y-(h/2)),(z-(l/2)))] (0,-1,0)
+
+
+
+superficie :: [(GLfloat,GLfloat,GLfloat)]->(GLfloat,GLfloat,GLfloat)->IO()
+superficie puntos (nx, ny, nz)= do
+  renderPrimitive Polygon$do
+     normal (Normal3 nx ny nz)
+     mapM_ (\(x,y,z) -> vertex $ Vertex3 x y z) puntos
+

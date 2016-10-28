@@ -1,0 +1,17 @@
+generarPrisma (x,y,z) w h l = do
+    --cara A (base)
+    materialDiffuse Front$= Color4 0 0 1 1
+    superficie [((x-(w/2)),(y-(0)),(z-(l/2))),        ((x-(w/2)),(y+(0)),(z+(l/2))),         ((x+(w/2)),(y+(0)),(z+(l/2))),         ((x+(w/2)),(y-(0)),(z-(l/2)))] (0, 0, -1)
+    --Cara B (frontal)
+    materialDiffuse Front$= Color4 0 1 0 1
+    superficie [((x-(w/2)),(y-(0)),(z-(l/2))),        ((x+(w/2)),(y-(0)),(z-(l/2))),         ((x),(h),(z))] (-1,0, 0)
+    --Cara C (trasera)
+    materialDiffuse Front$= Color4 0 1 1 1
+    superficie [((x-(w/2)),(y-(0)),(z-(l/2))),         ((x-(w/2)),(y+(0)),(z+(l/2))),        ((x),(h),(z))] (0, 0, 1)
+    --Cara D (lateral izq)
+    materialDiffuse Front$= Color4 1 0 0 1
+    superficie [((x-(w/2)),(y+(0)),(z+(l/2))),          ((x+(w/2)),(y+(0)),(z+(l/2))),        ((x),(h),(z))] (1,0, 0)
+    --Cara E (Arriba)
+    materialDiffuse Front$= Color4 1 0 1 1
+    superficie [ ((x+(w/2)),(y+(0)),(z+(l/2))),         ((x+(w/2)),(y-(0)),(z-(l/2))),        ((x),(h),(z))] (0,1,0)
+    
