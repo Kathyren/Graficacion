@@ -1,0 +1,41 @@
+
+
+import Graphics.UI.GLUT
+import Data.IORef
+
+main = do
+     getArgsAndInitialize
+     createWindow "Graficos"
+     escala <- newIORef 1.0
+     keyboardMouseCallback $= Just (teclado escala)
+     displayCallback $= desplegar escala
+     mainLoop
+
+
+
+desplegar escala = do 
+      clear [ColorBuffer]
+      e <- get escala
+      scale e e (0.0::GLfloat)
+      cuadro 0.5
+      loadIdentity
+      flush
+
+cuadro t =  renderPrimitive Polygon $ do
+            currentColor $= Color4 1 0 0 1
+            vertex$Vertex3 0 0 (0::GLfloat)
+            vertex$Vertex3 0 t (0::GLfloat)
+            currentColor $= Color4 0.2 0 0 1
+            vertex$Vertex3 t t (0::GLfloat)
+            vertex$Vertex3 t 0 (0::GLfloat)
+
+
+teclado escala (Char '+') Down _ _ = do
+      e <- get escala
+      escala $= e+0.1
+      postRedisplay Nothing
+teclado escala (Char '-') Down _ _ = do
+      e <- get escala
+      escala $= e-0.1
+      postRedisplay Nothing
+teclado _ _ _ _ _ = return ()
